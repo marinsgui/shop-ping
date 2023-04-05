@@ -7,7 +7,7 @@ export default function Home() {
         <title>ShopPing</title>
       </Head>
       <main>
-        
+        Home
       </main>
     </>
   )
