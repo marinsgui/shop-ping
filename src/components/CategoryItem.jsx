@@ -41,7 +41,7 @@ const Button = styled.button`
 
 export default function CategoryItem({ item }) {
     return (
-        <Container key={item.id}>
+        <Container>
             <Image src={item.img} />
             <InfoContainer>
                 <Title>{item.title}</Title>
