@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import styled from "styled-components"
 
@@ -83,6 +83,28 @@ const Button = styled.button`
 
 export default function Slider() {
     const [slideIndex, setSlideIndex] = useState(0)
+    const [paused, setPaused] = useState(false)
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            if(!paused) {
+                setSlideIndex((prevState) => {
+                    const newIndex = prevState + 1
+                    return newIndex >= sliderItems.length ? 0 : newIndex
+                })
+            }
+        }, 4000)
+
+        return () => clearInterval(intervalId)
+    }, [paused, sliderItems.length])
+
+    function handleMouseEnter() {
+        setPaused(true)
+    }
+
+    function handleMouseLeave() {
+        setPaused(false)
+    }
 
     function handleClick(direction) {
         if(direction === "left") {
@@ -93,7 +115,7 @@ export default function Slider() {
     }
 
     return (
-        <Container>
+        <Container onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <Arrow direction="left" onClick={() => handleClick("left")}>
                 <ArrowLeftOutlined />
             </Arrow>
