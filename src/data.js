@@ -47,7 +47,7 @@ export const popularProducts = [
     },
     {
       id:2,
-      img:"https://assets.stickpng.com/images/580b57fbd9996e24bc43bf78.png",
+      img:"/580b57fbd9996e24bc43beed.png",
     },
     {
       id:3,
@@ -55,7 +55,7 @@ export const popularProducts = [
     },
     {
       id:4,
-      img:"https://assets.stickpng.com/images/580b57fbd9996e24bc43beed.png",
+      img:"/580b57fbd9996e24bc43bf70.png",
     },
     {
       id:5,
@@ -67,7 +67,7 @@ export const popularProducts = [
     },
     {
       id:7,
-      img:"https://assets.stickpng.com/images/580b57fbd9996e24bc43bf70.png",
+      img:"/580b57fbd9996e24bc43bf78.png",
     },
     {
       id:8,
