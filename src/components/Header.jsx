@@ -4,8 +4,14 @@ import SearchIcon from '@mui/icons-material/Search'
 import Badge from '@mui/material/Badge'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 
+import Link from "next/link"
+
 const Container = styled.header`
+    background-color: white;
     height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 `
 
 const Wrapper = styled.div`
@@ -54,12 +60,6 @@ const Right = styled.div`
     align-items: center;
 `
 
-const MenuItem = styled.div`
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 25px;
-`
-
 export default function Header() {
   return (
     <Container>
@@ -72,16 +72,54 @@ export default function Header() {
                 </SearchContainer>
             </Left>
             <Center>
-                <Logo>PING.</Logo>
+                  <Logo>
+                      <Link
+                          style={{
+                              textDecoration: 'none',
+                              color: 'black'
+                          }}
+                          href='/'
+                      >
+                        PING.
+                      </Link>
+                    </Logo>
             </Center>
             <Right>
-                <MenuItem>CADASTRE-SE</MenuItem>
-                <MenuItem>ENTRE</MenuItem>
-                <MenuItem>
-                    <Badge badgeContent={4} color="primary">
-                        <ShoppingCartOutlinedIcon color="action" />
-                    </Badge>
-                </MenuItem>
+                  <Link
+                      style={{
+                          fontSize: '14px',
+                          textDecoration: 'none',
+                          color: 'black',
+                          marginLeft: '25px'
+                      }}
+                      href='/register'
+                  >
+                      CADASTRE-SE
+                  </Link>
+                  <Link
+                      style={{
+                          fontSize: '14px',
+                          textDecoration: 'none',
+                          color: 'black',
+                          marginLeft: '25px'
+                      }}
+                      href='/login'
+                  >
+                      ENTRE
+                  </Link>
+                  <Link
+                      style={{
+                          fontSize: '14px',
+                          textDecoration: 'none',
+                          color: 'black',
+                          marginLeft: '25px'
+                      }}
+                      href='/cart'
+                  >
+                        <Badge badgeContent={4} color="primary">
+                            <ShoppingCartOutlinedIcon color="action" />
+                        </Badge>
+                    </Link>
             </Right>
         </Wrapper>
     </Container>
