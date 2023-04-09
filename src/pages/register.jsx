@@ -1,3 +1,5 @@
+import Head from "next/head"
+
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -47,20 +49,25 @@ const Button = styled.button`
 `
 
 export default function Register() {
-  return (
-    <Container>
-        <Wrapper>
-            <Title>CRIE A SUA CONTA</Title>
-            <Form>
-                <Input placeholder="Nome de usuário" />
-                <Input placeholder="Nome" />
-                <Input placeholder="Sobrenome" />
-                <Input placeholder="Email" />
-                <Input placeholder="Senha" />
-                <Input placeholder="Confirme a sua senha" />
-                <Button>CRIAR CONTA</Button>
-            </Form>
-        </Wrapper>
-    </Container>
+    return (
+        <>
+            <Head>
+                <title>Cadastro</title>
+            </Head>
+            <Container>
+                <Wrapper>
+                    <Title>CRIE A SUA CONTA</Title>
+                    <Form>
+                        <Input placeholder="Nome de usuário" />
+                        <Input placeholder="Nome" />
+                        <Input placeholder="Sobrenome" />
+                        <Input placeholder="Email" />
+                        <Input placeholder="Senha" />
+                        <Input placeholder="Confirme a sua senha" />
+                        <Button>CRIAR CONTA</Button>
+                    </Form>
+                </Wrapper>
+            </Container>
+        </>
   )
 }

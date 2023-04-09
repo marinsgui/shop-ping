@@ -1,3 +1,5 @@
+import Head from "next/head"
+
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -54,18 +56,23 @@ const Link = styled.a`
 `
 
 export default function Login() {
-  return (
-    <Container>
-        <Wrapper>
-            <Title>ENTRAR NA SUA CONTA</Title>
-            <Form>
-                <Input placeholder="Nome de usuário" />
-                <Input placeholder="Senha" />
-                <Button>ENTRAR</Button>
-                <Link>ESQUECEU SUA SENHA?</Link>
-                <Link>CRIAR UMA NOVA CONTA</Link>
-            </Form>
-        </Wrapper>
-    </Container>
+    return (
+        <>
+            <Head>
+                <title>Login</title>
+            </Head>
+            <Container>
+                <Wrapper>
+                    <Title>ENTRAR NA SUA CONTA</Title>
+                    <Form>
+                        <Input placeholder="Nome de usuário" />
+                        <Input placeholder="Senha" />
+                        <Button>ENTRAR</Button>
+                        <Link>ESQUECEU SUA SENHA?</Link>
+                        <Link>CRIAR UMA NOVA CONTA</Link>
+                    </Form>
+                </Wrapper>
+            </Container>
+        </>
   )
 }
