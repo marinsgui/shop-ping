@@ -1,10 +1,12 @@
 import styled from "styled-components"
 
-import { categories } from '../data'
-
 import CategoryItem from "./CategoryItem"
 
+import { projectFirestore } from "@/services/firebaseConnection"
+
 import { mobile } from "@/responsive"
+
+import { useState, useEffect } from "react"
 
 const Container = styled.div`
     display: flex;
@@ -15,6 +17,20 @@ const Container = styled.div`
 `
 
 export default function Categories() {
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        const unsub = projectFirestore.collection('categories').onSnapshot(snapshot => {
+            let results = []
+            snapshot.docs.forEach(doc => {
+                results.push({ id: doc.id, ...doc.data() })
+            })
+            setCategories(results)
+        })
+
+        return () => unsub()
+    }, [])
+
     return (
         <Container>
             {categories.map(item => (

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 
 import styled from "styled-components"
 
-import { sliderItems } from '../data'
+import { projectFirestore } from "@/services/firebaseConnection"
 
 import { mobile } from "@/responsive"
 
@@ -88,6 +88,19 @@ const Button = styled.button`
 export default function Slider() {
     const [slideIndex, setSlideIndex] = useState(0)
     const [paused, setPaused] = useState(false)
+    const [sliderItems, setSliderItems] = useState([])
+
+    useEffect(() => {
+        const unsub = projectFirestore.collection('sliderItems').onSnapshot(snapshot => {
+            let results = []
+            snapshot.docs.forEach(doc => {
+                results.push({ id: doc.id, ...doc.data() })
+            })
+            setSliderItems(results)
+        })
+
+        return () => unsub()
+    }, [])
 
     useEffect(() => {
         const intervalId = setInterval(() => {
