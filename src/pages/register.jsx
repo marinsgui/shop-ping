@@ -2,6 +2,8 @@ import Head from "next/head"
 
 import styled from "styled-components"
 
+import { mobile } from "@/responsive"
+
 const Container = styled.div`
     height: 100vh;
     background: 
@@ -19,6 +21,8 @@ const Wrapper = styled.div`
     width: 30%;
     padding: 20px;
     background-color: white;
+
+    ${mobile({ width: '80%' })}
 `
 
 const Title = styled.h1`
@@ -29,6 +33,8 @@ const Title = styled.h1`
 const Form = styled.form`
     display: flex;
     flex-wrap: wrap;
+
+    ${mobile({ flexDirection: 'column' })}
 `
 
 const Input = styled.input`
@@ -36,6 +42,8 @@ const Input = styled.input`
     min-width: 40%;
     margin: 20px 10px 0 0;
     padding: 10px;
+
+    ${mobile({ width: '100%' })}
 `
 
 const Button = styled.button`
@@ -46,6 +54,8 @@ const Button = styled.button`
     background-color: teal;
     color: white;
     cursor: pointer;
+
+    ${mobile({ width: '100%' })}
 `
 
 export default function Register() {

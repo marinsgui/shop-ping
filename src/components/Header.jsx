@@ -6,29 +6,39 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 
 import Link from "next/link"
 
+import { mobile } from "@/responsive"
+
 const Container = styled.header`
     background-color: white;
     height: 60px;
     position: sticky;
     top: 0;
     z-index: 10;
+
+    ${mobile({ height: '50px' })}
 `
 
 const Wrapper = styled.div`
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
+
+    ${mobile({ padding: '10px 0' })}
 `
 
 const Left = styled.div`
     flex: 1;
     display: flex;
     align-items: center;
+
+    ${mobile({ display: 'none' })}
 `
     
 const Language = styled.span`
     font-size: 14px;
     cursor: pointer;
+
+    ${mobile({ display: 'none' })}
 `
 
 const SearchContainer = styled.div`
@@ -51,6 +61,8 @@ const Center = styled.div`
 const Logo = styled.h1`
     font-weight: bold;
     text-align: center;
+
+    ${mobile({ fontSize: '20px' })}
 `
 
 const Right = styled.div`
@@ -58,6 +70,15 @@ const Right = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    ${mobile({ justifyContent: 'center', flex: 2 })}
+`
+
+const MenuItem = styled.div`
+    font-size: 14px;
+    margin-left: 25px;
+
+    ${mobile({ marginLeft: '20px' })}
 `
 
 export default function Header() {
@@ -67,7 +88,7 @@ export default function Header() {
             <Left>
                 <Language>PT-BR</Language>
                 <SearchContainer>
-                    <Input />
+                    <Input placeholder="Faça a sua busca" />
                     <SearchIcon style={{ color: 'gray', fontSize: 16 }} />
                 </SearchContainer>
             </Left>
@@ -85,41 +106,19 @@ export default function Header() {
                     </Logo>
             </Center>
             <Right>
-                  <Link
-                      style={{
-                          fontSize: '14px',
-                          textDecoration: 'none',
-                          color: 'black',
-                          marginLeft: '25px'
-                      }}
-                      href='/register'
-                  >
-                      CADASTRE-SE
-                  </Link>
-                  <Link
-                      style={{
-                          fontSize: '14px',
-                          textDecoration: 'none',
-                          color: 'black',
-                          marginLeft: '25px'
-                      }}
-                      href='/login'
-                  >
-                      ENTRE
-                  </Link>
-                  <Link
-                      style={{
-                          fontSize: '14px',
-                          textDecoration: 'none',
-                          color: 'black',
-                          marginLeft: '25px'
-                      }}
-                      href='/cart'
-                  >
-                        <Badge badgeContent={4} color="primary">
-                            <ShoppingCartOutlinedIcon color="action" />
-                        </Badge>
-                    </Link>
+                  <MenuItem>
+                      <Link style={{textDecoration: 'none', color: 'black'}} href='/register'>CADASTRE-SE</Link>
+                  </MenuItem>
+                  <MenuItem>
+                      <Link style={{textDecoration: 'none', color: 'black'}} href='/login'>ENTRE</Link>
+                  </MenuItem>
+                  <MenuItem>
+                      <Link href='/cart'>
+                            <Badge badgeContent={4} color="primary">
+                                <ShoppingCartOutlinedIcon color="action" />
+                            </Badge>
+                        </Link>
+                  </MenuItem>
             </Right>
         </Wrapper>
     </Container>

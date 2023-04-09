@@ -2,6 +2,8 @@ import Head from "next/head"
 
 import styled from "styled-components"
 
+import { mobile } from "@/responsive"
+
 const Container = styled.div`
     height: 100vh;
     background: 
@@ -19,6 +21,8 @@ const Wrapper = styled.div`
     width: 25%;
     padding: 20px;
     background-color: white;
+
+    ${mobile({ width: '80%' })}
 `
 
 const Title = styled.h1`
