@@ -47,7 +47,7 @@ export const popularProducts = [
     },
     {
       id:2,
-      img:"/580b57fbd9996e24bc43beed.png",
+      img:"https://www.pngarts.com/files/1/Cocktail-Dress-PNG-Download-Image.png",
     },
     {
       id:3,
