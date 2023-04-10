@@ -4,9 +4,13 @@ import { useEffect, useState } from "react"
 
 import styled from "styled-components"
 
-import { projectFirestore } from "@/services/firebaseConnection"
+import { collection, getDocs } from 'firebase/firestore'
+
+import { db } from "@/services/firebaseConnection"
 
 import { mobile } from "@/responsive"
+
+import Link from "next/link"
 
 const Container = styled.div`
     width: 100%;
@@ -91,15 +95,19 @@ export default function Slider() {
     const [sliderItems, setSliderItems] = useState([])
 
     useEffect(() => {
-        const unsub = projectFirestore.collection('sliderItems').onSnapshot(snapshot => {
-            let results = []
-            snapshot.docs.forEach(doc => {
-                results.push({ id: doc.id, ...doc.data() })
-            })
-            setSliderItems(results)
-        })
+        (async () => {
+            const colRef = collection(db, 'sliderItems')
 
-        return () => unsub()
+            const snapshots = await getDocs(colRef)
+
+            const docs = snapshots.docs.map(doc => {
+                const data = doc.data()
+                data.id = doc.id
+                return data
+            })
+
+            setSliderItems(docs)
+        })()
     }, [])
 
     useEffect(() => {
@@ -145,7 +153,9 @@ export default function Slider() {
                         <InfoContainer>
                             <Title>{item.title}</Title>
                             <Desc>{item.desc}</Desc>
-                            <Button>COMPRE AGORA</Button>
+                            <Link href='/products'>
+                                <Button>COMPRE AGORA</Button>
+                            </Link>
                         </InfoContainer>
                     </Slide>
                 ))}

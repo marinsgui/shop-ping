@@ -2,7 +2,9 @@ import Product from './Product'
 
 import styled from "styled-components"
 
-import { projectFirestore } from '@/services/firebaseConnection'
+import { collection, getDocs } from 'firebase/firestore'
+
+import { db } from '@/services/firebaseConnection'
 
 import { useState, useEffect } from 'react'
 
@@ -17,15 +19,19 @@ export default function Products() {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        const unsub = projectFirestore.collection('products').onSnapshot(snapshot => {
-            let results = []
-            snapshot.docs.forEach(doc => {
-                results.push({ id: doc.id, ...doc.data() })
-            })
-            setProducts(results)
-        })
+        (async () => {
+            const colRef = collection(db, 'products')
 
-        return () => unsub()
+            const snapshots = await getDocs(colRef)
+
+            const docs = snapshots.docs.map(doc => {
+                const data = doc.data()
+                data.id = doc.id
+                return data
+            })
+
+            setProducts(docs)
+        })()
     }, [])
 
     return (

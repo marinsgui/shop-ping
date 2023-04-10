@@ -2,6 +2,8 @@ import { FavoriteBorderOutlined, SearchOutlined, ShoppingCartOutlined } from "@m
 
 import styled from "styled-components"
 
+import Link from "next/link"
+
 const Info = styled.div`
     opacity: 0;
     width: 100%;
@@ -61,11 +63,11 @@ const Icon = styled.div`
     &:hover {
         background-color: #e9f5f5;
         transform: scale(110%);
-
     }
 `
 
 export default function Product({ item }) {
+
     return (
         <Container>
             <Circle />
@@ -75,7 +77,9 @@ export default function Product({ item }) {
                     <ShoppingCartOutlined />
                 </Icon>
                 <Icon>
-                    <SearchOutlined />
+                    <Link href={`/products/${item.id}`} style={{color: 'black'}}>
+                        <SearchOutlined />
+                    </Link>
                 </Icon>
                 <Icon>
                     <FavoriteBorderOutlined />

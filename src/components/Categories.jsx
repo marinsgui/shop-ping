@@ -2,7 +2,9 @@ import styled from "styled-components"
 
 import CategoryItem from "./CategoryItem"
 
-import { projectFirestore } from "@/services/firebaseConnection"
+import { collection, getDocs } from 'firebase/firestore'
+
+import { db } from "@/services/firebaseConnection"
 
 import { mobile } from "@/responsive"
 
@@ -20,15 +22,19 @@ export default function Categories() {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        const unsub = projectFirestore.collection('categories').onSnapshot(snapshot => {
-            let results = []
-            snapshot.docs.forEach(doc => {
-                results.push({ id: doc.id, ...doc.data() })
-            })
-            setCategories(results)
-        })
+        (async () => {
+            const colRef = collection(db, 'categories')
 
-        return () => unsub()
+            const snapshots = await getDocs(colRef)
+
+            const docs = snapshots.docs.map(doc => {
+                const data = doc.data()
+                data.id = doc.id
+                return data
+            })
+
+            setCategories(docs)
+        })()
     }, [])
 
     return (

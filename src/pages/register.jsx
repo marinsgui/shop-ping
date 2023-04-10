@@ -71,9 +71,9 @@ export default function Register() {
                         <Input placeholder="Nome de usuário" />
                         <Input placeholder="Nome" />
                         <Input placeholder="Sobrenome" />
-                        <Input placeholder="Email" />
-                        <Input placeholder="Senha" />
-                        <Input placeholder="Confirme a sua senha" />
+                        <Input placeholder="Email" type="email" />
+                        <Input placeholder="Senha" type="password" />
+                        <Input placeholder="Confirme a sua senha" type="password" />
                         <Button>CRIAR CONTA</Button>
                     </Form>
                 </Wrapper>

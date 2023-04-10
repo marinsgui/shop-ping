@@ -2,6 +2,8 @@ import styled from "styled-components"
 
 import { mobile } from "@/responsive"
 
+import Link from "next/link"
+
 const Container = styled.div`
     flex: 1;
     margin: 3px;
@@ -49,7 +51,9 @@ export default function CategoryItem({ item }) {
             <Image src={item.img} />
             <InfoContainer>
                 <Title>{item.title}</Title>
-                <Button>COMPRE AGORA</Button>
+                <Link href='/products'>
+                    <Button>COMPRE AGORA</Button>
+                </Link>
             </InfoContainer>
         </Container>
     )

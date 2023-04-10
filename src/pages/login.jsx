@@ -70,7 +70,7 @@ export default function Login() {
                     <Title>ENTRAR NA SUA CONTA</Title>
                     <Form>
                         <Input placeholder="Nome de usuário" />
-                        <Input placeholder="Senha" />
+                        <Input placeholder="Senha" type="password" />
                         <Button>ENTRAR</Button>
                         <Link>ESQUECEU SUA SENHA?</Link>
                         <Link>CRIAR UMA NOVA CONTA</Link>

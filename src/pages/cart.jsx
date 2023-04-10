@@ -180,33 +180,14 @@ export default function Cart() {
                                 </ProductDetail>
                                 <PriceDetail>
                                     <AmountContainer>
-                                        <Add />
+                                        <Add style={{cursor: 'pointer'}} />
                                         <Amount>2</Amount>
-                                        <Remove />
+                                        <Remove style={{cursor: 'pointer'}} />
                                     </AmountContainer>
                                     <Price>R$ 109</Price>
                                 </PriceDetail>
                             </Product>
                             <Hr />
-                            <Product>
-                                <ProductDetail>
-                                    <Image src="https://60398.cdn.simplo7.net/static/60398/sku/masculino-tenis-qix-smash-1640638551971.jpg" />
-                                    <Details>
-                                        <ProductName><b>Product: </b>TÊNIS QIX SMASH</ProductName>
-                                        <ProductId><b>ID: </b>468468494949</ProductId>
-                                        <ProductColor color="black" />
-                                        <ProductSize><b>Tamanho: </b>42</ProductSize>
-                                    </Details>
-                                </ProductDetail>
-                                <PriceDetail>
-                                    <AmountContainer>
-                                        <Add />
-                                        <Amount>2</Amount>
-                                        <Remove />
-                                    </AmountContainer>
-                                    <Price>R$ 109</Price>
-                                </PriceDetail>
-                            </Product>
                         </Info>
                         <Summary>
                             <SummaryTitle>SEU PEDIDO:</SummaryTitle>
