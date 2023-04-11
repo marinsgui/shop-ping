@@ -170,21 +170,21 @@ export default function Cart() {
                     <Bottom>
                         <Info>
                             {cart.products.map(product => (
-                                <Product>
-                                <ProductDetail>
-                                    <Image src={product.img} />
-                                    <Details>
+                                <Product key={product.id}>
+                                    <ProductDetail>
+                                        <Image src={product.img} />
+                                        <Details>
                                             <ProductName><b>Produto: </b>{product.title}</ProductName>
                                             <ProductId>{product.desc}</ProductId>
-                                    </Details>
-                                </ProductDetail>
-                                <PriceDetail>
-                                    <AmountContainer>
-                                        <Amount>Quantidade: {product.quantity}</Amount>
-                                    </AmountContainer>
+                                        </Details>
+                                    </ProductDetail>
+                                    <PriceDetail>
+                                        <AmountContainer>
+                                            <Amount>Quantidade: {product.quantity}</Amount>
+                                        </AmountContainer>
                                         <Price>R$ {product.price.toFixed(2)}</Price>
-                                </PriceDetail>
-                            </Product>
+                                    </PriceDetail>
+                                </Product>
                             ))}
                             <Hr />
                         </Info>
