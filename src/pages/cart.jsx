@@ -1,10 +1,12 @@
-import { Add, Remove } from "@mui/icons-material"
-
 import Head from "next/head"
 
 import styled from "styled-components"
 
 import { mobile } from "@/responsive"
+
+import { useSelector } from "react-redux"
+
+import Link from "next/link"
 
 const Container = styled.div`
     
@@ -81,13 +83,7 @@ const Details = styled.div`
 `
 const ProductName = styled.span``
 const ProductId = styled.span``
-const ProductColor = styled.div`
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: ${props => props.color};
-`
-const ProductSize = styled.span``
+
 const PriceDetail = styled.div`
     flex: 1;
     display: flex;
@@ -131,6 +127,7 @@ const Summary = styled.div`
 const SummaryTitle = styled.h1`
     font-weight: 200;
 `
+
 const SummaryItem = styled.div`
     margin: 30px 0px;
     display: flex;
@@ -146,10 +143,12 @@ const SummaryButton = styled.button`
     background-color: black;
     color: white;
     font-weight: 600;
+    cursor: pointer;
 `
 
-
 export default function Cart() {
+    const cart = useSelector(state => state.cart)
+
     return (
         <>
             <Head>
@@ -159,41 +158,41 @@ export default function Cart() {
                 <Wrapper>
                     <Title>SEU CARRINHO</Title>
                     <Top>
-                        <TopButton>CONTINUAR COMPRANDO</TopButton>
+                        <Link href='/products'>
+                            <TopButton>CONTINUAR COMPRANDO</TopButton>
+                        </Link>
                         <TopTexts>
-                            <TopText>Carrinho (2)</TopText>
+                            <TopText>Carrinho ({cart.quantity})</TopText>
                             <TopText>Sua lista de desejos (0)</TopText>
                         </TopTexts>
                         <TopButton type="filled">FINALIZAR COMPRA</TopButton>
                     </Top>
                     <Bottom>
                         <Info>
-                            <Product>
+                            {cart.products.map(product => (
+                                <Product>
                                 <ProductDetail>
-                                    <Image src="https://60398.cdn.simplo7.net/static/60398/sku/masculino-tenis-qix-smash-1640638551971.jpg" />
+                                    <Image src={product.img} />
                                     <Details>
-                                        <ProductName><b>Product: </b>TÊNIS QIX SMASH</ProductName>
-                                        <ProductId><b>ID: </b>468468494949</ProductId>
-                                        <ProductColor color="black" />
-                                        <ProductSize><b>Tamanho: </b>42</ProductSize>
+                                            <ProductName><b>Produto: </b>{product.title}</ProductName>
+                                            <ProductId>{product.desc}</ProductId>
                                     </Details>
                                 </ProductDetail>
                                 <PriceDetail>
                                     <AmountContainer>
-                                        <Add style={{cursor: 'pointer'}} />
-                                        <Amount>2</Amount>
-                                        <Remove style={{cursor: 'pointer'}} />
+                                        <Amount>Quantidade: {product.quantity}</Amount>
                                     </AmountContainer>
-                                    <Price>R$ 109</Price>
+                                        <Price>R$ {product.price.toFixed(2)}</Price>
                                 </PriceDetail>
                             </Product>
+                            ))}
                             <Hr />
                         </Info>
                         <Summary>
                             <SummaryTitle>SEU PEDIDO:</SummaryTitle>
                             <SummaryItem>
                                 <SummaryItemText>Subtotal:</SummaryItemText>
-                                <SummaryItemPrice>R$ 220</SummaryItemPrice>
+                                <SummaryItemPrice>R$ {cart.total.toFixed(2)}</SummaryItemPrice>
                             </SummaryItem>
                             <SummaryItem>
                                 <SummaryItemText>Frete:</SummaryItemText>
@@ -205,7 +204,7 @@ export default function Cart() {
                             </SummaryItem>
                             <SummaryItem type='total'>
                                 <SummaryItemText>Total:</SummaryItemText>
-                                <SummaryItemPrice>R$ 220</SummaryItemPrice>
+                                <SummaryItemPrice>R$ {cart.total.toFixed(2)}</SummaryItemPrice>
                             </SummaryItem>
                             <SummaryButton>FINALIZAR COMPRA</SummaryButton>
                         </Summary>
