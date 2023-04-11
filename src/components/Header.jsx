@@ -7,6 +7,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import Link from "next/link"
 
 import { mobile } from "@/responsive"
+import { useSelector } from "react-redux"
 
 const Container = styled.header`
     background-color: white;
@@ -75,6 +76,8 @@ const MenuItem = styled.div`
 `
 
 export default function Header() {
+    const quantity = useSelector(state => state.cart.quantity)
+
   return (
     <Container>
         <Wrapper>
@@ -106,7 +109,7 @@ export default function Header() {
                   </MenuItem>
                   <MenuItem>
                       <Link href='/cart'>
-                            <Badge badgeContent={4} color="primary">
+                            <Badge badgeContent={quantity} color="primary">
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>
                         </Link>

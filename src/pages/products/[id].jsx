@@ -13,6 +13,8 @@ import { useEffect, useState } from "react"
 import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore'
 
 import { db } from "@/services/firebaseConnection"
+import { addProduct } from "@/redux/cartRedux"
+import { useDispatch } from "react-redux"
 
 const Container = styled.div``
 
@@ -96,6 +98,8 @@ const Button = styled.button`
 
 export default function Product() {
     const [product, setProduct] = useState(null)
+    const [quantity, setQuantity] = useState(1)
+    const dispatch = useDispatch()
 
     const { query: { id } } = useRouter()
 
@@ -113,6 +117,24 @@ export default function Product() {
         })()
     }, [id])
 
+    function handleQuantity(type) {
+        if (type === 'dec') {
+            setQuantity(quantity - 1)
+        } else {
+            setQuantity(quantity + 1)
+        }
+    }
+
+    function handleClick() {
+        dispatch(
+            addProduct({
+                ...product,
+                quantity,
+                price: product.price * quantity
+            })
+        )
+    }
+
     return (
         <>
             <Head>
@@ -129,11 +151,11 @@ export default function Product() {
                         <Price>R${product?.price}</Price>
                         <AddContainer>
                             <AmountContainer>
-                                <Remove />
-                                <Amount>1</Amount>
-                                <Add />
+                                <Remove onClick={() => handleQuantity('dec')} style={{cursor: 'pointer'}} />
+                                <Amount>{quantity}</Amount>
+                                <Add onClick={() => handleQuantity('inc')} style={{cursor: 'pointer'}} />
                             </AmountContainer>
-                            <Button>ADICIONAR AO CARRINHO</Button>
+                            <Button onClick={handleClick}>ADICIONAR AO CARRINHO</Button>
                         </AddContainer>
                     </InfoContainer>
                 </Wrapper>
