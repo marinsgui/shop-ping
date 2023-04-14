@@ -1,16 +1,14 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-import Products from "@/components/Products"
+import Products from "@/components/Products";
 
-import Head from "next/head"
+import Head from "next/head";
 
-const Container = styled.div`
-    
-`
+const Container = styled.div``;
 
 const Title = styled.h1`
-    margin: 20px;
-`
+  margin: 20px;
+`;
 
 export default function Productlist() {
   return (
@@ -24,5 +22,5 @@ export default function Productlist() {
         <Products />
       </Container>
     </>
-  )
+  );
 }

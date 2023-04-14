@@ -4,9 +4,15 @@ import styled from "styled-components"
 
 import { mobile } from "@/responsive"
 
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import Link from "next/link"
+
+import { Add, Close, Remove } from "@mui/icons-material"
+
+import { incrementQuantity, decrementQuantity, deleteItem } from "@/redux/cartRedux"
+
+import { useEffect, useState } from "react"
 
 const Container = styled.div`
     
@@ -62,25 +68,34 @@ const Info = styled.div`
     flex: 3;
 `
 
+const CloseButton = styled.div`
+    margin: auto 0;
+    padding: 0 1rem 0 0;
+`
+
 const Product = styled.div`
     display: flex;
     justify-content: space-between;
 
     ${mobile({ flexDirection: 'column' })}
 `
+
 const ProductDetail = styled.div`
     flex: 2;
     display: flex;
 `
+
 const Image = styled.img`
     width: 200px;
 `
+
 const Details = styled.div`
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 `
+
 const ProductName = styled.span``
 const ProductId = styled.span``
 
@@ -97,12 +112,14 @@ const AmountContainer = styled.div`
     align-items: center;
     margin-bottom: 20px;
 `
+
 const Amount = styled.div`
     font-size: 24px;
     margin: 5px;
 
     ${mobile({ margin: '5px 15px' })}
 `
+
 const Price = styled.div`
     font-size: 30px;
     font-weight: 200;
@@ -147,70 +164,122 @@ const SummaryButton = styled.button`
 `
 
 export default function Cart() {
-    const cart = useSelector(state => state.cart)
+  const [total, setTotal] = useState("");
 
-    return (
-        <>
-            <Head>
-                <title>Carrinho</title>
-            </Head>
-            <Container>
-                <Wrapper>
-                    <Title>SEU CARRINHO</Title>
-                    <Top>
-                        <Link href='/products'>
-                            <TopButton>CONTINUAR COMPRANDO</TopButton>
-                        </Link>
-                        <TopTexts>
-                            <TopText>Carrinho ({cart.quantity})</TopText>
-                            <TopText>Sua lista de desejos (0)</TopText>
-                        </TopTexts>
-                        <TopButton type="filled">FINALIZAR COMPRA</TopButton>
-                    </Top>
-                    <Bottom>
-                        <Info>
-                            {cart.products.map(product => (
-                                <Product key={product.id}>
-                                    <ProductDetail>
-                                        <Image src={product.img} />
-                                        <Details>
-                                            <ProductName><b>Produto: </b>{product.title}</ProductName>
-                                            <ProductId>{product.desc}</ProductId>
-                                        </Details>
-                                    </ProductDetail>
-                                    <PriceDetail>
-                                        <AmountContainer>
-                                            <Amount>Quantidade: {product.quantity}</Amount>
-                                        </AmountContainer>
-                                        <Price>R$ {product.price.toFixed(2)}</Price>
-                                    </PriceDetail>
-                                </Product>
-                            ))}
-                            <Hr />
-                        </Info>
-                        <Summary>
-                            <SummaryTitle>SEU PEDIDO:</SummaryTitle>
-                            <SummaryItem>
-                                <SummaryItemText>Subtotal:</SummaryItemText>
-                                <SummaryItemPrice>R$ {cart.total.toFixed(2)}</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem>
-                                <SummaryItemText>Frete:</SummaryItemText>
-                                <SummaryItemPrice>R$ 9,99</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem>
-                                <SummaryItemText>Desconto de frete:</SummaryItemText>
-                                <SummaryItemPrice>R$ -9,99</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem type='total'>
-                                <SummaryItemText>Total:</SummaryItemText>
-                                <SummaryItemPrice>R$ {cart.total.toFixed(2)}</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryButton>FINALIZAR COMPRA</SummaryButton>
-                        </Summary>
-                    </Bottom>
-                </Wrapper>
-            </Container>
-        </>
-    )
+  const products = useSelector((state) => state.cart.products);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let price = 0;
+    products.map((item) => {
+      price += item.price * item.quantity;
+      return price;
+    });
+    setTotal(price.toFixed(2));
+  }, [products]);
+
+  return (
+    <>
+      <Head>
+        <title>Carrinho</title>
+      </Head>
+      <Container>
+        <Wrapper>
+          <Title>SEU CARRINHO</Title>
+          <Top>
+            <Link href="/products">
+              <TopButton>CONTINUAR COMPRANDO</TopButton>
+            </Link>
+            <TopTexts>
+              <TopText>Carrinho ({products.quantity ?? 0})</TopText>
+              <TopText>Sua lista de desejos (0)</TopText>
+            </TopTexts>
+            <TopButton type="filled">FINALIZAR COMPRA</TopButton>
+          </Top>
+          <Bottom>
+            <Info>
+              {products.map((product) => (
+                <Product key={product.id}>
+                  <ProductDetail>
+                    <CloseButton
+                      onClick={() => dispatch(deleteItem(product.id))}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <Close />
+                    </CloseButton>
+                    <Image src={product.img} alt={product.title} />
+                    <Details>
+                      <ProductName>
+                        <b>Produto: </b>
+                        {product.title}
+                      </ProductName>
+                      <ProductId>{product.desc}</ProductId>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <AmountContainer>
+                      <div
+                        onClick={() =>
+                          dispatch(
+                            decrementQuantity({
+                              ...product,
+                              quantity: product.quantity,
+                              id: product.id,
+                              price: product.price * product.quantity,
+                            })
+                          )
+                        }
+                      >
+                        <Remove style={{ cursor: "pointer" }} />
+                      </div>
+                      <Amount>{product.quantity}</Amount>
+                      <div
+                        onClick={() =>
+                          dispatch(
+                            incrementQuantity({
+                              ...product,
+                              quantity: product.quantity,
+                              id: product.id,
+                              price: product.price * product.quantity,
+                            })
+                          )
+                        }
+                      >
+                        <Add style={{ cursor: "pointer" }} />
+                      </div>
+                    </AmountContainer>
+                    <Price>
+                      R$ {(product.price * product.quantity).toFixed(2)}
+                    </Price>
+                  </PriceDetail>
+                </Product>
+              ))}
+              <Hr />
+            </Info>
+            <Summary>
+              <SummaryTitle>SEU PEDIDO:</SummaryTitle>
+              <SummaryItem>
+                <SummaryItemText>Subtotal:</SummaryItemText>
+                <SummaryItemPrice>R$ {total}</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>Frete:</SummaryItemText>
+                <SummaryItemPrice>R$ 9,99</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>Desconto de frete:</SummaryItemText>
+                <SummaryItemPrice>R$ -9,99</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem type="total">
+                <SummaryItemText>Total:</SummaryItemText>
+                <SummaryItemPrice>R$ {total}</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryButton>FINALIZAR COMPRA</SummaryButton>
+            </Summary>
+          </Bottom>
+        </Wrapper>
+      </Container>
+    </>
+  );
 }

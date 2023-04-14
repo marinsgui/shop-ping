@@ -1,12 +1,13 @@
-import '@/styles/globals.css'
+import "@/styles/globals.css";
 
-import Header from '@/components/Header'
-import Announcement from '@/components/Announcement'
-import Footer from '@/components/Footer'
-import Newsletter from '@/components/Newsletter'
+import Header from "@/components/Header";
+import Announcement from "@/components/Announcement";
+import Footer from "@/components/Footer";
+import Newsletter from "@/components/Newsletter";
 
-import { Provider } from 'react-redux'
-import store from '@/redux/store'
+import { Provider } from "react-redux";
+
+import store from "@/redux/store";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -17,5 +18,5 @@ export default function App({ Component, pageProps }) {
       <Newsletter />
       <Footer />
     </Provider>
-  )
+  );
 }

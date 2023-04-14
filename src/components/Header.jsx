@@ -76,46 +76,56 @@ const MenuItem = styled.div`
 `
 
 export default function Header() {
-    const quantity = useSelector(state => state.cart.quantity)
+  const quantity = useSelector((state) => state.cart.products.length);
 
   return (
     <Container>
-        <Wrapper>
-            <Left>
-                <SearchContainer>
-                    <Input placeholder="Faça a sua busca" />
-                    <SearchIcon style={{ color: 'gray', fontSize: 16 }} />
-                </SearchContainer>
-            </Left>
-            <Center>
-                  <Logo>
-                      <Link
-                          style={{
-                              textDecoration: 'none',
-                              color: 'black'
-                          }}
-                          href='/'
-                      >
-                        PING.
-                      </Link>
-                    </Logo>
-            </Center>
-            <Right>
-                  <MenuItem>
-                      <Link style={{textDecoration: 'none', color: 'black'}} href='/register'>CADASTRE-SE</Link>
-                  </MenuItem>
-                  <MenuItem>
-                      <Link style={{textDecoration: 'none', color: 'black'}} href='/login'>ENTRE</Link>
-                  </MenuItem>
-                  <MenuItem>
-                      <Link href='/cart'>
-                            <Badge badgeContent={quantity} color="primary">
-                                <ShoppingCartOutlinedIcon color="action" />
-                            </Badge>
-                        </Link>
-                  </MenuItem>
-            </Right>
-        </Wrapper>
+      <Wrapper>
+        <Left>
+          <SearchContainer>
+            <Input placeholder="Faça a sua busca" />
+            <SearchIcon style={{ color: "gray", fontSize: 16 }} />
+          </SearchContainer>
+        </Left>
+        <Center>
+          <Logo>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "black",
+              }}
+              href="/"
+            >
+              PING.
+            </Link>
+          </Logo>
+        </Center>
+        <Right>
+          <MenuItem>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              href="/register"
+            >
+              CADASTRE-SE
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              href="/login"
+            >
+              ENTRE
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link href="/cart">
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlinedIcon color="action" />
+              </Badge>
+            </Link>
+          </MenuItem>
+        </Right>
+      </Wrapper>
     </Container>
-  )
+  );
 }

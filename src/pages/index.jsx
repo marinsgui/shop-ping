@@ -1,8 +1,8 @@
-import Categories from '@/components/Categories'
-import Products from '@/components/Products'
-import Slider from '@/components/Slider'
+import Categories from "@/components/Categories";
+import Products from "@/components/Products";
+import Slider from "@/components/Slider";
 
-import Head from 'next/head'
+import Head from "next/head";
 
 export default function Home() {
   return (
@@ -16,5 +16,5 @@ export default function Home() {
         <Products />
       </main>
     </>
-  )
+  );
 }
