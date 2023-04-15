@@ -199,7 +199,10 @@ export default function Cart() {
           </Top>
           <Bottom>
             <Info>
-              {products.map((product) => (
+              {products.length === 0 && (
+                <Product>O seu carrinho está vazio.</Product>
+              )}
+              {products && products.map((product) => (
                 <Product key={product.id}>
                   <ProductDetail>
                     <CloseButton
