@@ -4,6 +4,12 @@ import styled from "styled-components";
 
 import { mobile } from "@/responsive";
 
+import { useState } from "react";
+
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
+import { auth } from "@/services/firebaseConnection";
+
 const Container = styled.div`
   height: 100vh;
   background: linear-gradient(
@@ -33,7 +39,7 @@ const Title = styled.h1`
 
 const Form = styled.form`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 
   ${mobile({ flexDirection: "column" })}
 `;
@@ -60,6 +66,22 @@ const Button = styled.button`
 `;
 
 export default function Register() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useCreateUserWithEmailAndPassword(auth);
+
+  function handleRegister(e) {
+    e.preventDefault()
+    createUserWithEmailAndPassword(email, password)
+  }
+  
   return (
     <>
       <Head>
@@ -68,13 +90,25 @@ export default function Register() {
       <Container>
         <Wrapper>
           <Title>CRIE A SUA CONTA</Title>
-          <Form>
-            <Input placeholder="Nome de usuário" />
-            <Input placeholder="Nome" />
-            <Input placeholder="Sobrenome" />
-            <Input placeholder="Email" type="email" />
-            <Input placeholder="Senha" type="password" />
-            <Input placeholder="Confirme a sua senha" type="password" />
+          <Form onSubmit={handleRegister}>
+            <Input
+              placeholder="Nome"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <Input
+              placeholder="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              placeholder="Senha"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <Button>CRIAR CONTA</Button>
           </Form>
         </Wrapper>

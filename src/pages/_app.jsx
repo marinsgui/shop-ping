@@ -11,9 +11,11 @@ import { store , persistor } from "@/redux/store";
 
 import { PersistGate } from "redux-persist/integration/react";
 
+import { app } from "@/services/firebaseConnection";
+
 export default function App({ Component, pageProps }) {
   return (
-    <Provider store={store}>
+    <Provider store={store} app={app}>
       <PersistGate loading={"loading"} persistor={persistor}>
         <Announcement />
         <Header />
