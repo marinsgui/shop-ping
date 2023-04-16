@@ -7,22 +7,26 @@ import Newsletter from "@/components/Newsletter";
 
 import { Provider } from "react-redux";
 
-import { store , persistor } from "@/redux/store";
+import { store, persistor } from "@/redux/store";
 
 import { PersistGate } from "redux-persist/integration/react";
 
 import { app } from "@/services/firebaseConnection";
 
-export default function App({ Component, pageProps }) {
+import { SessionProvider } from "next-auth/react";
+
+export default function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <Provider store={store} app={app}>
-      <PersistGate loading={"loading"} persistor={persistor}>
-        <Announcement />
-        <Header />
-        <Component {...pageProps} />
-        <Newsletter />
-        <Footer />
-      </PersistGate>
-    </Provider>
+    <SessionProvider session={session}>
+      <Provider store={store} app={app}>
+        <PersistGate loading={"loading"} persistor={persistor}>
+          <Announcement />
+          <Header />
+          <Component {...pageProps} />
+          <Newsletter />
+          <Footer />
+        </PersistGate>
+      </Provider>
+    </SessionProvider>
   );
 }

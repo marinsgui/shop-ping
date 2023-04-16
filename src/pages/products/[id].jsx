@@ -14,7 +14,7 @@ import { doc, getDoc } from "firebase/firestore";
 
 import { db } from "@/services/firebaseConnection";
 
-import { addProduct } from "@/redux/cartRedux";
+import { addProduct } from "@/redux/pingRedux";
 
 import { useDispatch } from "react-redux";
 

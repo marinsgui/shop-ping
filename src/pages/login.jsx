@@ -4,6 +4,10 @@ import styled from "styled-components";
 
 import { mobile } from "@/responsive";
 
+import { GitHub } from "@mui/icons-material";
+
+import { getSession, signIn } from "next-auth/react";
+
 const Container = styled.div`
   height: 100vh;
   background: linear-gradient(
@@ -31,32 +35,16 @@ const Title = styled.h1`
   font-weight: 300;
 `;
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 10px 0;
-  padding: 10px;
-`;
-
 const Button = styled.button`
-  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   border: none;
   margin: 10px 0;
   padding: 15px 20px;
   background-color: teal;
   color: white;
-  cursor: pointer;
-`;
-
-const Link = styled.a`
-  margin: 5px 0;
-  font-size: 12px;
-  text-decoration: underline;
   cursor: pointer;
 `;
 
@@ -69,15 +57,28 @@ export default function Login() {
       <Container>
         <Wrapper>
           <Title>ENTRAR NA SUA CONTA</Title>
-          <Form>
-            <Input placeholder="Nome de usuário" />
-            <Input placeholder="Senha" type="password" />
-            <Button>ENTRAR</Button>
-            <Link>ESQUECEU SUA SENHA?</Link>
-            <Link>CRIAR UMA NOVA CONTA</Link>
-          </Form>
+            <Button onClick={() => signIn('github')}><GitHub /> ENTRAR COM GITHUB</Button>
         </Wrapper>
       </Container>
     </>
   );
+}
+
+export const getServerSideProps = async(context) => {
+  const session = await getSession(context)
+
+  if(session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {
+      session
+    }
+  }
 }

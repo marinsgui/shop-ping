@@ -7,7 +7,14 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import Link from "next/link"
 
 import { mobile } from "@/responsive"
+
 import { useSelector } from "react-redux"
+
+import { useSession } from "next-auth/react"
+
+import { Close } from "@mui/icons-material"
+
+import { signOut } from "next-auth/react"
 
 const Container = styled.header`
     background-color: white;
@@ -75,8 +82,28 @@ const MenuItem = styled.div`
     ${mobile({ marginLeft: '20px' })}
 `
 
+const UserContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+
+  > img {
+   width: 30px;
+   border-radius: 50%;
+  }
+
+  > button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+`
+
 export default function Header() {
   const quantity = useSelector((state) => state.cart.products.length);
+
+  const { data: session } = useSession()
 
   return (
     <Container>
@@ -102,20 +129,22 @@ export default function Header() {
         </Center>
         <Right>
           <MenuItem>
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              href="/register"
-            >
-              CADASTRE-SE
-            </Link>
-          </MenuItem>
-          <MenuItem>
+          {!session && (
             <Link
               style={{ textDecoration: "none", color: "black" }}
               href="/login"
             >
-              ENTRE
+              ENTRAR
             </Link>
+          )}
+
+          {session && (
+            <UserContainer>
+              <img src={session?.user?.image} alt={session?.user?.name} />
+              <p>{session?.user?.name}</p>
+              <button title="Sair da conta" onClick={() => signOut()}><Close /></button>
+            </UserContainer>
+          )}
           </MenuItem>
           <MenuItem>
             <Link href="/cart">

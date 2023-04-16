@@ -1,167 +1,170 @@
-import Head from "next/head"
+import Head from "next/head";
 
-import styled from "styled-components"
+import styled from "styled-components";
 
-import { mobile } from "@/responsive"
+import { mobile } from "@/responsive";
 
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 
-import Link from "next/link"
+import Link from "next/link";
 
-import { Add, Close, Remove } from "@mui/icons-material"
+import { Add, Close, Remove } from "@mui/icons-material";
 
-import { incrementQuantity, decrementQuantity, deleteItem } from "@/redux/cartRedux"
+import {
+  incrementQuantity,
+  decrementQuantity,
+  deleteItem,
+} from "@/redux/pingRedux";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
-const Container = styled.div`
-    
-`
+const Container = styled.div``;
 
 const Wrapper = styled.div`
-    padding: 20px;
+  padding: 20px;
 
-    ${mobile({ padding: '10px' })}
-`
+  ${mobile({ padding: "10px" })}
+`;
 
 const Title = styled.h1`
-    font-weight: 300;
-    text-align: center;
-`
+  font-weight: 300;
+  text-align: center;
+`;
 
 const Top = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
 
-    ${mobile({ gap: '20px' })}
-`
+  ${mobile({ gap: "20px" })}
+`;
 
 const TopButton = styled.button`
-    padding: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    border: ${props => props.type === 'filled' && 'none'};
-    background-color: ${props => props.type === 'filled' ? 'black' : 'transparent'};
-    color: ${props => props.type === 'filled' && 'white'};
-`
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: ${(props) => props.type === "filled" && "none"};
+  background-color: ${(props) =>
+    props.type === "filled" ? "black" : "transparent"};
+  color: ${(props) => props.type === "filled" && "white"};
+`;
 
 const TopTexts = styled.div`
-    ${mobile({ display: 'none'})}
-`
+  ${mobile({ display: "none" })}
+`;
 
 const TopText = styled.span`
-    text-decoration: underline;
-    cursor: pointer;
-    margin: 0 10px;
-`
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 0 10px;
+`;
 
 const Bottom = styled.div`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    ${mobile({ flexDirection: 'column' })}
-`
+  ${mobile({ flexDirection: "column" })}
+`;
 
 const Info = styled.div`
-    flex: 3;
-`
+  flex: 3;
+`;
 
 const CloseButton = styled.div`
-    margin: auto 0;
-    padding: 0 1rem 0 0;
-`
+  margin: auto 0;
+  padding: 0 1rem 0 0;
+`;
 
 const Product = styled.div`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 
-    ${mobile({ flexDirection: 'column' })}
-`
+  ${mobile({ flexDirection: "column" })}
+`;
 
 const ProductDetail = styled.div`
-    flex: 2;
-    display: flex;
-`
+  flex: 2;
+  display: flex;
+`;
 
 const Image = styled.img`
-    width: 200px;
-`
+  width: 200px;
+`;
 
 const Details = styled.div`
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-`
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
 
-const ProductName = styled.span``
-const ProductId = styled.span``
+const ProductName = styled.span``;
+const ProductId = styled.span``;
 
 const PriceDetail = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const AmountContainer = styled.div`
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+`;
 
 const Amount = styled.div`
-    font-size: 24px;
-    margin: 5px;
+  font-size: 24px;
+  margin: 5px;
 
-    ${mobile({ margin: '5px 15px' })}
-`
+  ${mobile({ margin: "5px 15px" })}
+`;
 
 const Price = styled.div`
-    font-size: 30px;
-    font-weight: 200;
+  font-size: 30px;
+  font-weight: 200;
 
-    ${mobile({ marginBottom: '20px' })}
-`
+  ${mobile({ marginBottom: "20px" })}
+`;
 
 const Hr = styled.hr`
-    background-color: #eee;
-    border: none;
-    height: 2px;
-`
+  background-color: #eee;
+  border: none;
+  height: 2px;
+`;
 
 const Summary = styled.div`
-    flex: 1;
-    border: 0.5px solid lightgray;
-    border-radius: 10px;
-    padding: 20px;
-    height: 50vh;
-`
+  flex: 1;
+  border: 0.5px solid lightgray;
+  border-radius: 10px;
+  padding: 20px;
+  height: 50vh;
+`;
 
 const SummaryTitle = styled.h1`
-    font-weight: 200;
-`
+  font-weight: 200;
+`;
 
 const SummaryItem = styled.div`
-    margin: 30px 0px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: ${props => props.type === 'total' && '500'};
-    font-size: ${props => props.type === 'total' && '24px'};
-`
-const SummaryItemText = styled.span``
-const SummaryItemPrice = styled.span``
+  margin: 30px 0px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: ${(props) => props.type === "total" && "500"};
+  font-size: ${(props) => props.type === "total" && "24px"};
+`;
+const SummaryItemText = styled.span``;
+const SummaryItemPrice = styled.span``;
 const SummaryButton = styled.button`
-    width: 100%;
-    padding: 10px;
-    background-color: black;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-`
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+`;
 
 export default function Cart() {
   const [total, setTotal] = useState("");
@@ -202,62 +205,63 @@ export default function Cart() {
               {products.length === 0 && (
                 <Product>O seu carrinho está vazio.</Product>
               )}
-              {products && products.map((product) => (
-                <Product key={product.id}>
-                  <ProductDetail>
-                    <CloseButton
-                      onClick={() => dispatch(deleteItem(product.id))}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <Close />
-                    </CloseButton>
-                    <Image src={product.img} alt={product.title} />
-                    <Details>
-                      <ProductName>
-                        <b>Produto: </b>
-                        {product.title}
-                      </ProductName>
-                      <ProductId>{product.desc}</ProductId>
-                    </Details>
-                  </ProductDetail>
-                  <PriceDetail>
-                    <AmountContainer>
-                      <div
-                        onClick={() =>
-                          dispatch(
-                            decrementQuantity({
-                              ...product,
-                              quantity: product.quantity,
-                              id: product.id,
-                              price: product.price * product.quantity,
-                            })
-                          )
-                        }
+              {products &&
+                products.map((product) => (
+                  <Product key={product.id}>
+                    <ProductDetail>
+                      <CloseButton
+                        onClick={() => dispatch(deleteItem(product.id))}
+                        style={{ cursor: "pointer" }}
                       >
-                        <Remove style={{ cursor: "pointer" }} />
-                      </div>
-                      <Amount>{product.quantity}</Amount>
-                      <div
-                        onClick={() =>
-                          dispatch(
-                            incrementQuantity({
-                              ...product,
-                              quantity: product.quantity,
-                              id: product.id,
-                              price: product.price * product.quantity,
-                            })
-                          )
-                        }
-                      >
-                        <Add style={{ cursor: "pointer" }} />
-                      </div>
-                    </AmountContainer>
-                    <Price>
-                      R$ {(product.price * product.quantity).toFixed(2)}
-                    </Price>
-                  </PriceDetail>
-                </Product>
-              ))}
+                        <Close />
+                      </CloseButton>
+                      <Image src={product.img} alt={product.title} />
+                      <Details>
+                        <ProductName>
+                          <b>Produto: </b>
+                          {product.title}
+                        </ProductName>
+                        <ProductId>{product.desc}</ProductId>
+                      </Details>
+                    </ProductDetail>
+                    <PriceDetail>
+                      <AmountContainer>
+                        <div
+                          onClick={() =>
+                            dispatch(
+                              decrementQuantity({
+                                ...product,
+                                quantity: product.quantity,
+                                id: product.id,
+                                price: product.price * product.quantity,
+                              })
+                            )
+                          }
+                        >
+                          <Remove style={{ cursor: "pointer" }} />
+                        </div>
+                        <Amount>{product.quantity}</Amount>
+                        <div
+                          onClick={() =>
+                            dispatch(
+                              incrementQuantity({
+                                ...product,
+                                quantity: product.quantity,
+                                id: product.id,
+                                price: product.price * product.quantity,
+                              })
+                            )
+                          }
+                        >
+                          <Add style={{ cursor: "pointer" }} />
+                        </div>
+                      </AmountContainer>
+                      <Price>
+                        R$ {(product.price * product.quantity).toFixed(2)}
+                      </Price>
+                    </PriceDetail>
+                  </Product>
+                ))}
               <Hr />
             </Info>
             <Summary>
