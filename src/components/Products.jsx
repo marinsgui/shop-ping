@@ -1,19 +1,10 @@
 import Product from "./Product";
 
-import styled from "styled-components";
-
 import { collection, getDocs } from "firebase/firestore";
 
 import { db } from "@/services/firebaseConnection";
 
 import { useState, useEffect } from "react";
-
-const Container = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -35,10 +26,10 @@ export default function Products() {
   }, []);
 
   return (
-    <Container>
+    <div className="p-5 flex flex-wrap justify-between">
       {products.map((item) => (
         <Product key={item.id} item={item} />
       ))}
-    </Container>
+    </div>
   );
 }

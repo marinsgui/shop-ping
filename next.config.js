@@ -14,6 +14,22 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'firebasestorage.googleapis.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.ctfassets.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'd3o2e4jr3mxnm3.cloudfront.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.pngarts.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.prada.com',
+      },
     ],
   },
 }
