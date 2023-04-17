@@ -6,8 +6,6 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 import Link from "next/link";
 
-import { mobile } from "@/responsive";
-
 import { useSelector } from "react-redux";
 
 import { useSession } from "next-auth/react";
@@ -16,89 +14,7 @@ import { Close } from "@mui/icons-material";
 
 import { signOut } from "next-auth/react";
 
-const Container = styled.header`
-  background-color: white;
-  height: 60px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-
-  ${mobile({ height: "50px" })}
-`;
-
-const Wrapper = styled.div`
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-
-  ${mobile({ padding: "10px 0" })}
-`;
-
-const Left = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-
-  ${mobile({ display: "none" })}
-`;
-
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-  padding: 5px;
-`;
-
-const Input = styled.input`
-  border: none;
-  outline: none;
-`;
-
-const Center = styled.div`
-  flex: 1;
-`;
-
-const Logo = styled.h1`
-  font-weight: bold;
-  text-align: center;
-
-  ${mobile({ fontSize: "20px" })}
-`;
-
-const Right = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  ${mobile({ justifyContent: "center", flex: 2 })}
-`;
-
-const MenuItem = styled.div`
-  font-size: 14px;
-  margin-left: 25px;
-
-  ${mobile({ marginLeft: "20px" })}
-`;
-
-const UserContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-
-  > img {
-    width: 30px;
-    border-radius: 50%;
-  }
-
-  > button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-`;
+import Image from "next/image";
 
 export default function Header() {
   const quantity = useSelector((state) => state.ping.products.length);
@@ -106,16 +22,17 @@ export default function Header() {
   const { data: session } = useSession();
 
   return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <SearchContainer>
-            <Input placeholder="Faça a sua busca" />
-            <SearchIcon style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
-        </Left>
-        <Center>
-          <Logo>
+    <header className="bg-white h-12 md:h-16 sticky top-0 z-10">
+      <div className="py-3 px-0 md:px-5 flex justify-between">
+        <div className="hidden md:flex items-center flex-1">
+          <div className="border border-gray-300 flex items-center ml-6 p-1">
+            <input type="text" placeholder="Faça a sua busca" className="border-none outline-none" />
+            <SearchIcon style={{ color: "gray", fontSize: 20 }} />
+          </div>
+        </div>
+
+        <div className="flex-1">
+          <h1 className="font-bold text-center text-xl md:text-3xl">
             <Link
               style={{
                 textDecoration: "none",
@@ -125,10 +42,11 @@ export default function Header() {
             >
               PING.
             </Link>
-          </Logo>
-        </Center>
-        <Right>
-          <MenuItem>
+          </h1>
+        </div>
+
+        <div className="flex-2 md:flex-1 flex justify-center md:justify-end items-center">
+          <div className="text-sm ml-5 md:ml-6">
             {!session && (
               <Link
                 style={{ textDecoration: "none", color: "black" }}
@@ -139,24 +57,24 @@ export default function Header() {
             )}
 
             {session && (
-              <UserContainer>
-                <img src={session?.user?.image} alt={session?.user?.name} />
+              <div className="flex justify-between items-center gap-2">
+                <Image src={session?.user?.image} width={30} height={30} alt={session?.user?.name} className="rounded-full" />
                 <p>{session?.user?.name}</p>
-                <button title="Sair da conta" onClick={() => signOut()}>
+                <button title="Sair da conta" onClick={() => signOut()} className="border-none bg-transparent cursor-pointer">
                   <Close />
                 </button>
-              </UserContainer>
+              </div>
             )}
-          </MenuItem>
-          <MenuItem>
+          </div>
+          <div className="text-sm mx-5 md:ml-6 md:mr-0">
             <Link href="/cart">
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlinedIcon color="action" />
               </Badge>
             </Link>
-          </MenuItem>
-        </Right>
-      </Wrapper>
-    </Container>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }

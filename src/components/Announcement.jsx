@@ -1,18 +1,5 @@
-import styled from "styled-components";
-
-const Container = styled.div`
-  height: 30px;
-  background-color: teal;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 500;
-`;
-
 export default function Announcement() {
   return (
-    <Container>Super oferta! Frete grátis em pedidos acima de R$50!</Container>
+    <div className="h-8 bg-teal-600 text-white flex justify-center items-center text-sm font-semibold">Super oferta! Frete grátis em pedidos acima de R$50!</div>
   );
 }
