@@ -1,86 +1,86 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-import SearchIcon from '@mui/icons-material/Search'
-import Badge from '@mui/material/Badge'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import SearchIcon from "@mui/icons-material/Search";
+import Badge from "@mui/material/Badge";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
-import Link from "next/link"
+import Link from "next/link";
 
-import { mobile } from "@/responsive"
+import { mobile } from "@/responsive";
 
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 
-import { useSession } from "next-auth/react"
+import { useSession } from "next-auth/react";
 
-import { Close } from "@mui/icons-material"
+import { Close } from "@mui/icons-material";
 
-import { signOut } from "next-auth/react"
+import { signOut } from "next-auth/react";
 
 const Container = styled.header`
-    background-color: white;
-    height: 60px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  background-color: white;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 
-    ${mobile({ height: '50px' })}
-`
+  ${mobile({ height: "50px" })}
+`;
 
 const Wrapper = styled.div`
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
 
-    ${mobile({ padding: '10px 0' })}
-`
+  ${mobile({ padding: "10px 0" })}
+`;
 
 const Left = styled.div`
-    flex: 1;
-    display: flex;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
 
-    ${mobile({ display: 'none' })}
-`
+  ${mobile({ display: "none" })}
+`;
 
 const SearchContainer = styled.div`
-    border: 0.5px solid lightgray;
-    display: flex;
-    align-items: center;
-    margin-left: 25px;
-    padding: 5px;
-`
+  border: 0.5px solid lightgray;
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+  padding: 5px;
+`;
 
 const Input = styled.input`
-    border: none;
-    outline: none;
-`
+  border: none;
+  outline: none;
+`;
 
 const Center = styled.div`
-    flex: 1;
-`
+  flex: 1;
+`;
 
 const Logo = styled.h1`
-    font-weight: bold;
-    text-align: center;
+  font-weight: bold;
+  text-align: center;
 
-    ${mobile({ fontSize: '20px' })}
-`
+  ${mobile({ fontSize: "20px" })}
+`;
 
 const Right = styled.div`
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
-    ${mobile({ justifyContent: 'center', flex: 2 })}
-`
+  ${mobile({ justifyContent: "center", flex: 2 })}
+`;
 
 const MenuItem = styled.div`
-    font-size: 14px;
-    margin-left: 25px;
+  font-size: 14px;
+  margin-left: 25px;
 
-    ${mobile({ marginLeft: '20px' })}
-`
+  ${mobile({ marginLeft: "20px" })}
+`;
 
 const UserContainer = styled.div`
   display: flex;
@@ -89,8 +89,8 @@ const UserContainer = styled.div`
   gap: 0.5rem;
 
   > img {
-   width: 30px;
-   border-radius: 50%;
+    width: 30px;
+    border-radius: 50%;
   }
 
   > button {
@@ -98,12 +98,12 @@ const UserContainer = styled.div`
     background-color: transparent;
     cursor: pointer;
   }
-`
+`;
 
 export default function Header() {
-  const quantity = useSelector((state) => state.cart.products.length);
+  const quantity = useSelector((state) => state.ping.products.length);
 
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   return (
     <Container>
@@ -129,22 +129,24 @@ export default function Header() {
         </Center>
         <Right>
           <MenuItem>
-          {!session && (
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              href="/login"
-            >
-              ENTRAR
-            </Link>
-          )}
+            {!session && (
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                href="/login"
+              >
+                ENTRAR
+              </Link>
+            )}
 
-          {session && (
-            <UserContainer>
-              <img src={session?.user?.image} alt={session?.user?.name} />
-              <p>{session?.user?.name}</p>
-              <button title="Sair da conta" onClick={() => signOut()}><Close /></button>
-            </UserContainer>
-          )}
+            {session && (
+              <UserContainer>
+                <img src={session?.user?.image} alt={session?.user?.name} />
+                <p>{session?.user?.name}</p>
+                <button title="Sair da conta" onClick={() => signOut()}>
+                  <Close />
+                </button>
+              </UserContainer>
+            )}
           </MenuItem>
           <MenuItem>
             <Link href="/cart">

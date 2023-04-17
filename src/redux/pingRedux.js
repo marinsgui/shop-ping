@@ -34,12 +34,6 @@ const pingSlice = createSlice({
         (item) => item.id !== action.payload
       );
     },
-    addUser: (state, action) => {
-      state.userInfo = action.payload;
-    },
-    removeUser: (state, action) => {
-      state.userInfo = null;
-    },
   },
 });
 
@@ -48,8 +42,6 @@ export const {
   incrementQuantity,
   decrementQuantity,
   deleteItem,
-  addUser,
-  removeUser,
 } = pingSlice.actions;
 
 export default pingSlice.reducer;

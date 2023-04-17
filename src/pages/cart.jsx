@@ -169,7 +169,7 @@ const SummaryButton = styled.button`
 export default function Cart() {
   const [total, setTotal] = useState("");
 
-  const products = useSelector((state) => state.cart.products);
+  const products = useSelector((state) => state.ping.products);
 
   const dispatch = useDispatch();
 

@@ -57,28 +57,30 @@ export default function Login() {
       <Container>
         <Wrapper>
           <Title>ENTRAR NA SUA CONTA</Title>
-            <Button onClick={() => signIn('github')}><GitHub /> ENTRAR COM GITHUB</Button>
+          <Button onClick={() => signIn("github")}>
+            <GitHub /> ENTRAR COM GITHUB
+          </Button>
         </Wrapper>
       </Container>
     </>
   );
 }
 
-export const getServerSideProps = async(context) => {
-  const session = await getSession(context)
+export const getServerSideProps = async (context) => {
+  const session = await getSession(context);
 
-  if(session) {
+  if (session) {
     return {
       redirect: {
-        destination: '/',
-        permanent: false
-      }
-    }
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
 
   return {
     props: {
-      session
-    }
-  }
-}
+      session,
+    },
+  };
+};
