@@ -1,52 +1,8 @@
 import Head from "next/head";
 
-import styled from "styled-components";
-
-import { mobile } from "@/responsive";
-
 import { GitHub } from "@mui/icons-material";
 
 import { getSession, signIn } from "next-auth/react";
-
-const Container = styled.div`
-  height: 100vh;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
-      center;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Wrapper = styled.div`
-  width: 25%;
-  padding: 20px;
-  background-color: white;
-
-  ${mobile({ width: "80%" })}
-`;
-
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 300;
-`;
-
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  border: none;
-  margin: 10px 0;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-`;
 
 export default function Login() {
   return (
@@ -54,14 +10,17 @@ export default function Login() {
       <Head>
         <title>Login</title>
       </Head>
-      <Container>
-        <Wrapper>
-          <Title>ENTRAR NA SUA CONTA</Title>
-          <Button onClick={() => signIn("github")}>
-            <GitHub /> ENTRAR COM GITHUB
-          </Button>
-        </Wrapper>
-      </Container>
+      <div className="h-screen bg-[url('https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')] bg-cover flex justify-center items-center">
+        <div className="w-4/5 md:w-1/4 p-5 bg-white">
+          <h2 className="text-2xl font-light">ENTRAR NA SUA CONTA</h2>
+          <button
+            className="flex justify-center items-center gap-2 w-full border-none my-3 py-4 px-5 bg-teal-600 text-white cursor-pointer"
+            onClick={() => signIn("github")}
+          >
+            <GitHub />ENTRAR COM GITHUB
+          </button>
+        </div>
+      </div>
     </>
   );
 }

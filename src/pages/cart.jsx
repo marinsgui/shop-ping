@@ -1,9 +1,5 @@
 import Head from "next/head";
 
-import styled from "styled-components";
-
-import { mobile } from "@/responsive";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import Link from "next/link";
@@ -18,153 +14,7 @@ import {
 
 import { useEffect, useState } from "react";
 
-const Container = styled.div``;
-
-const Wrapper = styled.div`
-  padding: 20px;
-
-  ${mobile({ padding: "10px" })}
-`;
-
-const Title = styled.h1`
-  font-weight: 300;
-  text-align: center;
-`;
-
-const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-
-  ${mobile({ gap: "20px" })}
-`;
-
-const TopButton = styled.button`
-  padding: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  border: ${(props) => props.type === "filled" && "none"};
-  background-color: ${(props) =>
-    props.type === "filled" ? "black" : "transparent"};
-  color: ${(props) => props.type === "filled" && "white"};
-`;
-
-const TopTexts = styled.div`
-  ${mobile({ display: "none" })}
-`;
-
-const TopText = styled.span`
-  text-decoration: underline;
-  cursor: pointer;
-  margin: 0 10px;
-`;
-
-const Bottom = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  ${mobile({ flexDirection: "column" })}
-`;
-
-const Info = styled.div`
-  flex: 3;
-`;
-
-const CloseButton = styled.div`
-  margin: auto 0;
-  padding: 0 1rem 0 0;
-`;
-
-const Product = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  ${mobile({ flexDirection: "column" })}
-`;
-
-const ProductDetail = styled.div`
-  flex: 2;
-  display: flex;
-`;
-
-const Image = styled.img`
-  width: 200px;
-`;
-
-const Details = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-`;
-
-const ProductName = styled.span``;
-const ProductId = styled.span``;
-
-const PriceDetail = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const AmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const Amount = styled.div`
-  font-size: 24px;
-  margin: 5px;
-
-  ${mobile({ margin: "5px 15px" })}
-`;
-
-const Price = styled.div`
-  font-size: 30px;
-  font-weight: 200;
-
-  ${mobile({ marginBottom: "20px" })}
-`;
-
-const Hr = styled.hr`
-  background-color: #eee;
-  border: none;
-  height: 2px;
-`;
-
-const Summary = styled.div`
-  flex: 1;
-  border: 0.5px solid lightgray;
-  border-radius: 10px;
-  padding: 20px;
-  height: 50vh;
-`;
-
-const SummaryTitle = styled.h1`
-  font-weight: 200;
-`;
-
-const SummaryItem = styled.div`
-  margin: 30px 0px;
-  display: flex;
-  justify-content: space-between;
-  font-weight: ${(props) => props.type === "total" && "500"};
-  font-size: ${(props) => props.type === "total" && "24px"};
-`;
-const SummaryItemText = styled.span``;
-const SummaryItemPrice = styled.span``;
-const SummaryButton = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-`;
+import Image from "next/image";
 
 export default function Cart() {
   const [total, setTotal] = useState("");
@@ -187,45 +37,68 @@ export default function Cart() {
       <Head>
         <title>Carrinho</title>
       </Head>
-      <Container>
-        <Wrapper>
-          <Title>SEU CARRINHO</Title>
-          <Top>
+      <div>
+        <div className="p-3 md:p-5">
+          <h2 className="font-light text-2xl text-center">SEU CARRINHO</h2>
+          <div className="flex justify-between items-center gap-5 md:gap-5 p-5">
             <Link href="/products">
-              <TopButton>CONTINUAR COMPRANDO</TopButton>
+              <button className="p-3 font-semibold cursor-pointer border-2 border-black">
+                CONTINUAR COMPRANDO
+              </button>
             </Link>
-            <TopTexts>
-              <TopText>Carrinho ({products.quantity ?? 0})</TopText>
-              <TopText>Sua lista de desejos (0)</TopText>
-            </TopTexts>
-            <TopButton type="filled">FINALIZAR COMPRA</TopButton>
-          </Top>
-          <Bottom>
-            <Info>
+            <div className="hidden md:block">
+              <span className="underline cursor-pointer px-3">
+                Carrinho ({products.quantity ?? 0})
+              </span>
+              <span className="underline cursor-pointer px-3">
+                Sua lista de desejos (0)
+              </span>
+            </div>
+            <button
+              className="p-3 font-semibold cursor-pointer bg-black text-white"
+              type="filled"
+            >
+              FINALIZAR COMPRA
+            </button>
+          </div>
+          <div className="flex flex-col md:flex-row justify-between">
+            <div className="flex-[3]">
               {products.length === 0 && (
-                <Product>O seu carrinho está vazio.</Product>
+                <div className="flex flex-col md:flex-row justify-between">
+                  O seu carrinho está vazio.
+                </div>
               )}
               {products &&
                 products.map((product) => (
-                  <Product key={product.id}>
-                    <ProductDetail>
-                      <CloseButton
+                  <div
+                    className="flex flex-col md:flex-row justify-between"
+                    key={product.id}
+                  >
+                    <div className="flex-[2] flex">
+                      <div
+                        className="my-auto pr-3"
                         onClick={() => dispatch(deleteItem(product.id))}
                         style={{ cursor: "pointer" }}
                       >
                         <Close />
-                      </CloseButton>
-                      <Image src={product.img} alt={product.title} />
-                      <Details>
-                        <ProductName>
+                      </div>
+                      <Image
+                        className="w-52"
+                        src={product.img}
+                        width={500}
+                        height={500}
+                        alt={product.title}
+                      />
+                      <div className="p-5 flex flex-col justify-around">
+                        <span>
                           <b>Produto: </b>
                           {product.title}
-                        </ProductName>
-                        <ProductId>{product.desc}</ProductId>
-                      </Details>
-                    </ProductDetail>
-                    <PriceDetail>
-                      <AmountContainer>
+                        </span>
+                        <span>{product.desc}</span>
+                      </div>
+                    </div>
+                    <div className="flex-1 flex flex-col justify-center items-center">
+                      <div className="flex items-center mb-5">
                         <div
                           onClick={() =>
                             dispatch(
@@ -240,7 +113,9 @@ export default function Cart() {
                         >
                           <Remove style={{ cursor: "pointer" }} />
                         </div>
-                        <Amount>{product.quantity}</Amount>
+                        <div className="text-2xl my-1 mx-4 md:m-1">
+                          {product.quantity}
+                        </div>
                         <div
                           onClick={() =>
                             dispatch(
@@ -255,38 +130,42 @@ export default function Cart() {
                         >
                           <Add style={{ cursor: "pointer" }} />
                         </div>
-                      </AmountContainer>
-                      <Price>
+                      </div>
+                      <div className="text-3xl font-extralight mb-5 md:mb-0">
                         R$ {(product.price * product.quantity).toFixed(2)}
-                      </Price>
-                    </PriceDetail>
-                  </Product>
+                      </div>
+                    </div>
+                  </div>
                 ))}
-              <Hr />
-            </Info>
-            <Summary>
-              <SummaryTitle>SEU PEDIDO:</SummaryTitle>
-              <SummaryItem>
-                <SummaryItemText>Subtotal:</SummaryItemText>
-                <SummaryItemPrice>R$ {total}</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Frete:</SummaryItemText>
-                <SummaryItemPrice>R$ 9,99</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Desconto de frete:</SummaryItemText>
-                <SummaryItemPrice>R$ -9,99</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem type="total">
-                <SummaryItemText>Total:</SummaryItemText>
-                <SummaryItemPrice>R$ {total}</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryButton>FINALIZAR COMPRA</SummaryButton>
-            </Summary>
-          </Bottom>
-        </Wrapper>
-      </Container>
+            </div>
+            <div className="flex-1 border border-gray-300 rounded-xl p-5 h-[50vh]">
+              <h2 className=" text-lg font-extralight">SEU PEDIDO:</h2>
+              <div className="my-8 flex justify-between ">
+                <span>Subtotal:</span>
+                <span>R$ {total}</span>
+              </div>
+              <div className="my-8 flex justify-between ">
+                <span>Frete:</span>
+                <span>R$ 9,99</span>
+              </div>
+              <div className="my-8 flex justify-between ">
+                <span>Desconto de frete:</span>
+                <span>R$ -9,99</span>
+              </div>
+              <div
+                className="my-8 flex justify-between font-medium text-2xl"
+                type="total"
+              >
+                <span>Total:</span>
+                <span>R$ {total}</span>
+              </div>
+              <button className="w-full p-3 bg-black text-white font-semibold cursor-pointer">
+                FINALIZAR COMPRA
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
