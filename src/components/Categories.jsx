@@ -1,22 +1,10 @@
-import styled from "styled-components";
-
 import CategoryItem from "./CategoryItem";
 
 import { collection, getDocs } from "firebase/firestore";
 
 import { db } from "@/services/firebaseConnection";
 
-import { mobile } from "@/responsive";
-
 import { useState, useEffect } from "react";
-
-const Container = styled.div`
-  display: flex;
-  padding: 20px;
-  justify-content: space-between;
-
-  ${mobile({ flexDirection: "column", padding: "0" })}
-`;
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -38,10 +26,10 @@ export default function Categories() {
   }, []);
 
   return (
-    <Container>
+    <div className="flex flex-col md:flex-row p-0 md:p-5 justify-between">
       {categories.map((item) => (
         <CategoryItem key={item.id} item={item} />
       ))}
-    </Container>
+    </div>
   );
 }

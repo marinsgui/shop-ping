@@ -1,60 +1,24 @@
-import styled from "styled-components";
-
-import { mobile } from "@/responsive";
-
 import Link from "next/link";
-
-const Container = styled.div`
-  flex: 1;
-  margin: 3px;
-  height: 70vh;
-  position: relative;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  ${mobile({ height: "25vh" })}
-`;
-
-const InfoContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Title = styled.h1`
-  color: white;
-  margin-bottom: 20px;
-`;
-
-const Button = styled.button`
-  border: none;
-  padding: 10px;
-  background-color: white;
-  color: gray;
-  cursor: pointer;
-  font-weight: 600;
-`;
+import Image from "next/image";
 
 export default function CategoryItem({ item }) {
   return (
-    <Container>
-      <Image src={item.img} alt={item.title} />
-      <InfoContainer>
-        <Title>{item.title}</Title>
+    <div className="flex-1 m-1 h-[70vh] relative">
+      <Image
+        className="object-cover h-[25vh] md:w-full md:h-full"
+        src={item.img}
+        width={500}
+        height={500}
+        alt={item.title}
+      />
+      <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
+        <h3 className="text-white text-2xl font-semibold mb-5">{item.title}</h3>
         <Link href="/products">
-          <Button>COMPRE AGORA</Button>
+          <button className="border-none p-3 bg-white text-gray-800 cursor-pointer font-semibold">
+            COMPRE AGORA
+          </button>
         </Link>
-      </InfoContainer>
-    </Container>
+      </div>
+    </div>
   );
 }
