@@ -1,14 +1,6 @@
-import styled from "styled-components";
-
 import Products from "@/components/Products";
 
 import Head from "next/head";
-
-const Container = styled.div``;
-
-const Title = styled.h1`
-  margin: 20px;
-`;
 
 export default function Productlist() {
   return (
@@ -17,10 +9,10 @@ export default function Productlist() {
         <title>Produtos - ShopPing</title>
       </Head>
 
-      <Container>
-        <Title>Produtos</Title>
+      <div>
+        <h2 className="m-5 text-4xl">Produtos</h2>
         <Products />
-      </Container>
+      </div>
     </>
   );
 }

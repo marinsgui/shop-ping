@@ -1,9 +1,5 @@
 import { Add, Remove } from "@mui/icons-material";
 
-import styled from "styled-components";
-
-import { mobile } from "@/responsive";
-
 import Head from "next/head";
 
 import { useRouter } from "next/router";
@@ -18,85 +14,7 @@ import { addProduct } from "@/redux/pingRedux";
 
 import { useDispatch } from "react-redux";
 
-const Container = styled.div``;
-
-const Wrapper = styled.div`
-  padding: 50px;
-  display: flex;
-
-  ${mobile({ padding: "10px", flexDirection: "column" })}
-`;
-
-const ImgContainer = styled.div`
-  flex: 1;
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 90vh;
-  object-fit: cover;
-
-  ${mobile({ height: "40vh" })}
-`;
-
-const InfoContainer = styled.div`
-  flex: 1;
-  padding: 0 50px;
-
-  ${mobile({ padding: "10px" })}
-`;
-
-const Title = styled.h1`
-  font-weight: 200;
-`;
-
-const Desc = styled.p`
-  margin: 20px 0;
-`;
-
-const Price = styled.span`
-  font-weight: 100;
-  font-size: 40px;
-`;
-
-const AddContainer = styled.div`
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  ${mobile({ width: "100%" })}
-`;
-
-const AmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-`;
-
-const Amount = styled.span`
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid teal;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 5px;
-`;
-
-const Button = styled.button`
-  padding: 15px;
-  border: 2px solid teal;
-  background-color: white;
-  font-weight: 500;
-  cursor: pointer;
-
-  &:hover {
-    background-color: teal;
-    color: white;
-  }
-`;
+import Image from "next/image";
 
 export default function Product() {
   const [product, setProduct] = useState(null);
@@ -149,29 +67,44 @@ export default function Product() {
       <Head>
         <title>{product?.title}</title>
       </Head>
-      <Container>
-        <Wrapper>
-          <ImgContainer>
-            <Image src={product?.img} alt={product?.title} />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>{product?.title}</Title>
-            <Desc>{product?.desc}</Desc>
-            <Price>R${product?.price.toFixed(2)}</Price>
-            <AddContainer>
-              <AmountContainer>
+      <div>
+        <div className="flex flex-col md:flex-row p-5 md:p-12">
+          <div className="flex-1">
+            <Image
+              className="w-full h-[40vh] md:h-[90vh] object-cover"
+              src={product?.img}
+              width={500}
+              height={500}
+              alt={product?.title}
+            />
+          </div>
+          <div className="flex-1 px-3 md:p-12">
+            <h2 className="text-3xl font-extralight">{product?.title}</h2>
+            <p className="py-5">{product?.desc}</p>
+            <span className="font-thin text-4xl">
+              R${product?.price.toFixed(2)}
+            </span>
+            <div className="w-full md:w-1/2 flex justify-between items-center font-bold">
+              <div className="flex items-center font-bold">
                 <Remove
                   onClick={() => removeItem()}
                   style={{ cursor: "pointer" }}
                 />
-                <Amount>{quantity}</Amount>
+                <span className="w-8 h-8 rounded-xl flex justify-center items-center mx-1 border border-teal-600">
+                  {quantity}
+                </span>
                 <Add onClick={() => addItem()} style={{ cursor: "pointer" }} />
-              </AmountContainer>
-              <Button onClick={handleClick}>ADICIONAR AO CARRINHO</Button>
-            </AddContainer>
-          </InfoContainer>
-        </Wrapper>
-      </Container>
+              </div>
+              <button
+                className="p-4 border-2 border-teal-600 bg-white font-medium cursor-pointer hover:bg-teal-600 hover:text-white"
+                onClick={handleClick}
+              >
+                ADICIONAR AO CARRINHO
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
