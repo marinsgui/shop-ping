@@ -30,6 +30,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.prada.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+      },
     ],
   },
 }

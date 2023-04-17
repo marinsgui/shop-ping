@@ -7,143 +7,105 @@ import {
   Room,
   Twitter,
 } from "@mui/icons-material";
-
-import styled from "styled-components";
-
-import { mobile } from "@/responsive";
-
-const Container = styled.footer`
-  display: flex;
-
-  ${mobile({ flexDirection: "column" })}
-`;
-
-const Left = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-`;
-
-const Logo = styled.h1``;
-
-const Desc = styled.p`
-  margin: 20px 0;
-`;
-
-const SocialContainer = styled.div`
-  display: flex;
-  gap: 15px;
-`;
-
-const SocialIcon = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  background-color: ${(props) => props.color};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Center = styled.div`
-  flex: 1;
-  padding: 20px;
-
-  ${mobile({ display: "none" })}
-`;
-
-const Title = styled.h3`
-  margin-bottom: 30px;
-`;
-
-const List = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const ListItem = styled.li`
-  width: 50%;
-  margin-bottom: 20px;
-`;
-
-const Right = styled.div`
-  flex: 1;
-  padding: 20px;
-
-  ${mobile({ backgroundColor: "#fff8f8" })}
-`;
-
-const ContactItem = styled.div`
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-`;
-
-const Payment = styled.img`
-  width: 50%;
-`;
+import Image from "next/image";
 
 export default function Footer() {
+  const listItems = [
+    {
+      id: 1,
+      title: "Página inicial",
+    },
+    {
+      id: 2,
+      title: "Carrinho",
+    },
+    {
+      id: 3,
+      title: "Moda masculina",
+    },
+    {
+      id: 4,
+      title: "Moda feminina",
+    },
+    {
+      id: 5,
+      title: "Acessórios",
+    },
+    {
+      id: 6,
+      title: "Minha conta",
+    },
+    {
+      id: 7,
+      title: "Acompanhamento de pedidos",
+    },
+    {
+      id: 8,
+      title: "Lista de desejos",
+    },
+    {
+      id: 9,
+      title: "Termos e condições",
+    },
+  ];
+
   return (
-    <Container>
-      <Left>
-        <Logo>PING.</Logo>
-        <Desc>
+    <footer className="flex flex-col md:flex-row">
+      <div className="flex-1 flex flex-col p-5">
+        <h2 className="text-2xl font-bold">PING.</h2>
+        <p className="my-5">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
           suscipit minima nulla nam fugiat ducimus? Debitis inventore, cum
           voluptatum aliquid, enim earum temporibus eligendi, blanditiis
           accusamus quas distinctio perferendis officia.
-        </Desc>
-        <SocialContainer>
-          <SocialIcon color="#3b5999">
+        </p>
+        <div className="flex gap-4">
+          <div className="w-10 h-10 rounded-full text-white flex justify-center items-center bg-[#3b5999]">
             <Facebook />
-          </SocialIcon>
-          <SocialIcon color="#e4405f">
+          </div>
+          <div className="w-10 h-10 rounded-full text-white flex justify-center items-center bg-[#e4405f]">
             <Instagram />
-          </SocialIcon>
-          <SocialIcon color="#55acee">
+          </div>
+          <div className="w-10 h-10 rounded-full text-white flex justify-center items-center bg-[#55acee]">
             <Twitter />
-          </SocialIcon>
-          <SocialIcon color="#e60023">
+          </div>
+          <div className="w-10 h-10 rounded-full text-white flex justify-center items-center bg-[#e60023]">
             <Pinterest />
-          </SocialIcon>
-        </SocialContainer>
-      </Left>
-      <Center>
-        <Title>Links úteis</Title>
-        <List>
-          <ListItem>Página inicial</ListItem>
-          <ListItem>Carrinho</ListItem>
-          <ListItem>Moda Masculina</ListItem>
-          <ListItem>Moda Feminina</ListItem>
-          <ListItem>Acessórios</ListItem>
-          <ListItem>Minha Conta</ListItem>
-          <ListItem>Acompanhamento de pedidos</ListItem>
-          <ListItem>Lista de desejos</ListItem>
-          <ListItem>Termos e condições</ListItem>
-        </List>
-      </Center>
-      <Right>
-        <Title>Contato</Title>
-        <ContactItem>
+          </div>
+        </div>
+      </div>
+      <div className="flex-1 p-5 hidden md:block">
+        <h3 className="mb-8">Links úteis</h3>
+        <ul className="m-0 p-0 list-none flex flex-wrap">
+          {listItems.map((item) => (
+            <li className="w-1/2 mb-5" key={item.id}>
+              {item.title}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="flex-1 p-5 bg-red-50 md:bg-white">
+        <h3 className="mb-8">Contato</h3>
+        <div className="mb-5 flex items-center">
           <Room style={{ marginRight: "10px" }} />
           Avenida Brasil, 123 - Rio de Janeiro, RJ
-        </ContactItem>
-        <ContactItem>
+        </div>
+        <div className="mb-5 flex items-center">
           <Phone style={{ marginRight: "10px" }} />
           (021)99999-9999
-        </ContactItem>
-        <ContactItem>
+        </div>
+        <div className="mb-5 flex items-center">
           <MailOutline style={{ marginRight: "10px" }} />
           contato@ping.com
-        </ContactItem>
-        <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
-      </Right>
-    </Container>
+        </div>
+        <Image
+          className="w-1/2"
+          src="https://i.ibb.co/Qfvn4z6/payment.png"
+          width={500}
+          height={500}
+          alt="Métodos de pagamento"
+        />
+      </div>
+    </footer>
   );
 }
