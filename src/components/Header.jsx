@@ -1,18 +1,13 @@
-import styled from "styled-components";
-
 import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import Close from "@mui/icons-material/Close";
 
 import Link from "next/link";
 
 import { useSelector } from "react-redux";
 
-import { useSession } from "next-auth/react";
-
-import { Close } from "@mui/icons-material";
-
-import { signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 import Image from "next/image";
 
@@ -22,11 +17,15 @@ export default function Header() {
   const { data: session } = useSession();
 
   return (
-    <header className="bg-white h-12 md:h-16 sticky top-0 z-10">
+    <header className="bg-white h-12 md:h-16 sticky top-0 z-50">
       <div className="py-3 px-0 md:px-5 flex justify-between">
         <div className="hidden md:flex items-center flex-1">
           <div className="border border-gray-300 flex items-center ml-6 p-1">
-            <input type="text" placeholder="Faça a sua busca" className="border-none outline-none" />
+            <input
+              type="text"
+              placeholder="Faça a sua busca"
+              className="border-none outline-none"
+            />
             <SearchIcon style={{ color: "gray", fontSize: 20 }} />
           </div>
         </div>
@@ -58,9 +57,19 @@ export default function Header() {
 
             {session && (
               <div className="flex justify-between items-center gap-2">
-                <Image src={session?.user?.image} width={30} height={30} alt={session?.user?.name} className="rounded-full" />
+                <Image
+                  src={session?.user?.image}
+                  width={30}
+                  height={30}
+                  alt={session?.user?.name}
+                  className="rounded-full"
+                />
                 <p>{session?.user?.name}</p>
-                <button title="Sair da conta" onClick={() => signOut()} className="border-none bg-transparent cursor-pointer">
+                <button
+                  title="Sair da conta"
+                  onClick={() => signOut()}
+                  className="border-none bg-transparent cursor-pointer"
+                >
                   <Close />
                 </button>
               </div>
