@@ -1,38 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1>ShopPing</h1>
 
-## Getting Started
+<p align="center">
+  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=49AA26&labelColor=000000">
+</p>
 
-First, run the development server:
+<p><a href='https://shop-ping.vercel.app/'>Acesse aqui.</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+![image](https://user-images.githubusercontent.com/106755788/233453356-139367b0-108f-404d-8437-c391fcb04c10.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+<h2>Resumo</h2>
+<p>Esse projeto consiste em uma loja de roupas virtual, é possível fazer login com github, adicionar itens no carrinho e finalizar a compra.</p>
+<p>O projeto foi feito em NextJS com TailwindCSS e Redux Toolkit.</p>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<h2>Motivação</h2>
+<p>O propósito desse projeto foi me familiarizar com Redux Toolkit, além de me aprimorar em Next e React.</p>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h2>Tecnologias utilizadas</h2>
+<p>- <a href='https://nextjs.org/'>NextJS</p>
+<p>- <a href='https://tailwindcss.com/'>TailwindCSS</p>
+<p>- <a href='https://pt-br.reactjs.org/'>ReactJS</p>
+<p>- <a href='https://redux-toolkit.js.org/'>Redux Toolkit</p>
+<p>- React Hooks</p>
+<p>- <a href='https://nodejs.org/'>[Node e NPM]<p>
