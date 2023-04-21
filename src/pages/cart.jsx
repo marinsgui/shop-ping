@@ -16,12 +16,19 @@ import { useEffect, useState } from "react";
 
 import Image from "next/image";
 
+import StripeCheckout from "react-stripe-checkout";
+
+import { useSession } from "next-auth/react";
+
 export default function Cart() {
   const [total, setTotal] = useState("");
+  const [payNow, setPayNow] = useState(false);
 
   const products = useSelector((state) => state.ping.products);
 
   const dispatch = useDispatch();
+
+  const { data: session } = useSession();
 
   useEffect(() => {
     let price = 0;
@@ -31,6 +38,10 @@ export default function Cart() {
     });
     setTotal(price.toFixed(2));
   }, [products]);
+
+  function handleCheckout() {
+    setPayNow(true);
+  }
 
   return (
     <>
@@ -56,7 +67,7 @@ export default function Cart() {
             </div>
             <button
               className="p-3 font-semibold cursor-pointer bg-black text-white"
-              type="filled"
+              onClick={handleCheckout}
             >
               FINALIZAR COMPRA
             </button>
@@ -159,9 +170,24 @@ export default function Cart() {
                 <span>Total:</span>
                 <span>R$ {total}</span>
               </div>
-              <button className="w-full p-3 bg-black text-white font-semibold cursor-pointer">
+              <button
+                className="w-full p-3 bg-black text-white font-semibold cursor-pointer"
+                onClick={handleCheckout}
+              >
                 FINALIZAR COMPRA
               </button>
+              {payNow && (
+                <div className="w-full mt-6 flex justify-center items-center">
+                  <StripeCheckout
+                    stripeKey="pk_test_51Mz5bmH3jLNwCUCS9NqNPtmIixpnmI50dnIuABvoDxLEVUlEVAC3HUCsHOjJ5zjLJSjcCjAWe6PnMxsOVIudRdqU00vIHoBcSK"
+                    name="ShopPing Loja Online"
+                    amount={total * 100}
+                    label="Realizar pagamento"
+                    description={`Sua compra é no valor de ${total}`}
+                    email={session.user.email}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
